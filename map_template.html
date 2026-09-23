@@ -23,15 +23,32 @@
         const map = L.map('map').setView([39.78, -89.65], 11);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+        }).addTo(map);    
         leads.forEach(l => {
             L.circleMarker([l.lat, l.lon], {
-                radius: 7, color: '#1B2A4A',
-                fillColor: '#D4A843', fillOpacity: 0.9, weight: 2
+                radius: 10, color: '#0d1117',
+                fillColor: l.city === 'Sherman' ? '#e67e22'
+                          : l.city === 'New Berlin' ? '#27ae60'
+                          : '#D4A843',
+                fillOpacity: 0.85, weight: 3
             }).bindPopup(
                 `<strong>${l.company}</strong><br>${l.street}, ${l.city}, ${l.state}`
             ).addTo(map);
         });
+        const legend = L.control({ position: 'bottomright' });
+        legend.onAdd = function () {
+            const div = L.DomUtil.create('div', 'legend');
+            div.style.background = 'white';
+            div.style.padding = '8px 12px';
+            div.style.borderRadius = '4px';
+            div.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+            div.innerHTML = '<strong>City</strong><br>' +
+                '<span style="color:#D4A843">●</span> Springfield<br>' +
+                '<span style="color:#27ae60">●</span> New Berlin<br>' +
+                '<span style="color:#e67e22">●</span> Sherman';
+            return div;
+        };
+        legend.addTo(map);
     </script>
 </body>
 </html>
