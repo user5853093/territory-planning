@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Territory Planning — Lead Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        html, body { margin: 0; padding: 0; height: 100%; font-family: system-ui, sans-serif; }
+        #map { height: 100vh; width: 100%; }
+        .header { position: absolute; top: 10px; left: 50px; z-index: 1000;
+                  background: white; padding: 8px 16px; border-radius: 4px;
+                  box-shadow: 0 2px 6px rgba(0,0,0,0.2); font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="header">Territory Planning — Lead Map</div>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // The {{LEADS_JSON}} placeholder is replaced by generate_map.py
+        const leads = {{LEADS_JSON}};
+        const map = L.map('map').setView([39.78, -89.65], 11);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        leads.forEach(l => {
+            L.circleMarker([l.lat, l.lon], {
+                radius: 7, color: '#1B2A4A',
+                fillColor: '#D4A843', fillOpacity: 0.9, weight: 2
+            }).bindPopup(
+                `<strong>${l.company}</strong><br>${l.street}, ${l.city}, ${l.state}`
+            ).addTo(map);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+TERRITORY PLANNING - VERIFICATION REPORT
+=============================================
+Total leads processed: 25
+Rows missing coordinates: 0
+Rows outside Central IL bounds: 0
+
+Leads per city:
+  New Berlin: 2
+  Sherman: 1
+  Springfield: 22
+
+All coordinates within expected Central Illinois bounds.
